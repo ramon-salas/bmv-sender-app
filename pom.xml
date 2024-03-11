@@ -13,7 +13,7 @@
 	<artifactId>bmv-sender-app</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>bmv-sender-app</name>
-	<description>Aplicación para el envío de mensajes de BMV</description>
+	<description>Aplicación para el envío de mensajes de BMV con UDP y BMV Multicast</description>
 
 	<properties>
 		<sonar.exclusions>
