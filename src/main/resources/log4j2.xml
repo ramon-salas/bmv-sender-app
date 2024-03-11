@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration name="log-config">
+	<Properties>
+		<Property name="log-level">${env:LOG_LEVEL:-INFO}</Property>
+		<Property name="log-path">${env:LOG_FILE_PATH:-/tmp}</Property>
+		<Property name="log-file-name">${env:LOG_FILE_NAME:-sajiro-bmv-kernel}</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="RollingFile_Appender"
+			fileName="${log-path}/${log-file-name}.log"
+			filePattern="${log-path}/${log-file-name}-%d{yyyy-MM-dd-HH-mm}.log">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{1.} -
+					%msg%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{1.} - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="${log-level}">
+			<AppenderRef ref="RollingFile_Appender" />
+			<AppenderRef ref="Console" />
+		</Root>
+		<Logger name="mx.com.sajiro" level="${log-level}" additivity="false">
+			<AppenderRef ref="RollingFile_Appender" />
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="org.springframework" level="${log-level}"
+			additivity="false">
+			<AppenderRef ref="RollingFile_Appender" />
+			<AppenderRef ref="Console" />
+		</Logger>
+	</Loggers>
+</Configuration>
