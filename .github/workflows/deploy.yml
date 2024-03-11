@@ -1,0 +1,76 @@
+name: Merge and deploy
+
+on:
+  push:
+    branches:
+        - "main"
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3 
+      
+      - name: Get maven version
+        id: get-maven-version
+        run: echo "::set-output name=maven_version::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
+
+      - name: Autoversion
+        id: autoversion
+        run: |
+          version=${{ steps.get-maven-version.outputs.maven_version }}
+          echo $GITHUB_SSH_REPO_URL
+          git remote set-url --push origin $GITHUB_SSH_REPO_URL
+          git config --global user.email "ci@sajiro.com"
+          git config --global user.name "SAJIRO CI"
+
+          git checkout main
+          git pull 2> /dev/null
+          
+          branch_name=$(git log -1 --format=%B | awk -F'/' '{print $2}' | awk -F' ' '{print $1}')
+          echo $branch_name
+          preffix=$(echo $branch_name | awk -F'-' '{print $1}')
+          if [ "$preffix" = "major" ]
+          then
+            first_number=$(echo $version | awk -F'.' '{print $1}')
+            first_number=$(( first_number + 1 ))
+            version="$first_number.0.0"
+            mvn versions:set -DnewVersion=$version
+            mvn versions:commit
+          elif [ "$preffix" = "feature" ]
+          then
+            first_number=$(echo $version | awk -F'.' '{print $1}')
+            second_number=$(echo $version | awk -F'.' '{print $2}')
+            second_number=$(( second_number + 1 ))
+            version="$first_number.$second_number.0"
+            mvn versions:set -DnewVersion=$version
+            mvn versions:commit
+          elif [ "$preffix" = "fix" ]
+          then
+            first_number=$(echo $version | awk -F'.' '{print $1}')
+            second_number=$(echo $version | awk -F'.' '{print $2}')
+            third_number=$(echo $version | awk -F'.' '{print $3}' | awk -F'-' '{print $1}')
+            third_number=$(( third_number + 1 ))
+            version="$first_number.$second_number.$third_number"
+            mvn versions:set -DnewVersion=$version
+            mvn versions:commit
+          else
+            exit 0
+          fi
+          
+          git add .
+          git commit -m "Upgrade version to $version"
+          git push -u origin main
+
+          git tag v$version -m "Tag version $version"
+          git push origin --tags
+
+          mvn deploy
+
+          mvn versions:set -DnewVersion=$version-SNAPSHOT
+          mvn versions:commit
+          git add .
+          git commit -m "Dev - $version-SNAPSHOT"
+          git push -u origin main
