@@ -43,7 +43,7 @@ public abstract class AbstractVO {
                 .filter(this::validateValidName).map(this::getterMethod)
                 .filter(this::isGetterMethodNotNull)
                 .map(getter -> convertMethodToPropertyVO(getter, instance))
-                .sorted().collect(Collectors.toList());
+                .sorted().toList();
         return toString(listVoProperties.stream().map(vo -> vo.getValue())
                 .collect(Collectors.toList()).stream());
     }

@@ -9,7 +9,6 @@ package mx.com.sajiro;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
 import mx.com.sajiro.exception.BusinessException;
@@ -22,12 +21,11 @@ import mx.com.sajiro.service.MessageProcessorService;
 @Slf4j
 public class Application {
 
-    private static ApplicationContext applicationContext;
-
     public static void main(String[] args)
             throws BeansException, BusinessException {
         log.info("SAJIRO -> Inicializando envio de mensajes BMV");
-        applicationContext = SpringApplication.run(Application.class, args);
+        final var applicationContext = SpringApplication.run(Application.class,
+                args);
         applicationContext.getBean(MessageProcessorService.class).process();
     }
 
