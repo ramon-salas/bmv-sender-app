@@ -16,15 +16,10 @@ public final class ArraysUtils {
 
     public static byte[] addAll(final byte[] array1, final byte[] array2) {
         var result = new byte[array1.length + array2.length];
-        addBytesToResult(array1, result);
-        addBytesToResult(array2, result);
+        System.arraycopy(array1, 0, result, 0, array1.length);
+        System.arraycopy(array2, 0, result, array1.length, array2.length);
 
         return result;
-    }
-
-    private static void addBytesToResult(final byte[] array,
-            final byte[] result) {
-        System.arraycopy(array, 0, result, 0, array.length);
     }
 
 }
