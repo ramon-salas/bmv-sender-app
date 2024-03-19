@@ -28,6 +28,8 @@ public class MulticastConfigProperties {
     private int group;
     /** BMV session . */
     private int session;
+    /** Total messages to send per package. */
+    private int totalMessages;
     /** Milliseconds between sends. */
     private long milliseconds;
     /** Network interface. */

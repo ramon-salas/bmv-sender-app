@@ -49,7 +49,7 @@ public class MessageProcessorServiceImpl implements MessageProcessorService {
     @Override
     public void process() throws BusinessException {
         try {
-            log.info("Se empiezan a leerlos mensajes del archivo: {}",
+            log.info("Comienza la lectura de los mensajes del archivo: {}",
                     multicastConfigProperties.getPath());
             log.info("Trabajando...");
             readFileLines().forEach(t -> {
@@ -64,16 +64,7 @@ public class MessageProcessorServiceImpl implements MessageProcessorService {
                     e);
             throw new BusinessException(e);
         }
-        log.info("Mensajes totales a enviar: {}", messages.size());
-        log.info("Comienza el envio de mensajes");
-        log.info(
-                "Datos: Interfaz: {}, IP: {}, Puerto: {}, Grupo Multicast: {}, Sesion: {}, Milisegundos de espera entre mensajes: {}",
-                multicastConfigProperties.getSenderInterface(),
-                multicastConfigProperties.getIp(),
-                multicastConfigProperties.getPort(),
-                multicastConfigProperties.getGroup(),
-                multicastConfigProperties.getSession(),
-                multicastConfigProperties.getMilliseconds());
+        infoLog();
         Uninterruptibles.sleepUninterruptibly(2600, TimeUnit.MILLISECONDS);
         messages.forEach((sequence, message) -> {
             try {
@@ -112,6 +103,22 @@ public class MessageProcessorServiceImpl implements MessageProcessorService {
         final var bytes = ArraysUtils.addAll(MessageHeaderCreatorUtil.create(
                 multicastConfigProperties, message.length, sequence), message);
         broadcastSenderService.send(bytes);
+    }
+
+    private void infoLog() {
+        log.info("Mensajes totales a enviar: {}", messages.size());
+        log.info("Comienza el envio de mensajes");
+        log.info(
+                "Datos: Interfaz: {}, IP: {}, Puerto: {}, Grupo Multicast: {}, "
+                        + "Sesion: {}, Milisegundos de espera entre mensajes: {}, "
+                        + "Mensajes por paquete {}",
+                multicastConfigProperties.getSenderInterface(),
+                multicastConfigProperties.getIp(),
+                multicastConfigProperties.getPort(),
+                multicastConfigProperties.getGroup(),
+                multicastConfigProperties.getSession(),
+                multicastConfigProperties.getMilliseconds(),
+                multicastConfigProperties.getTotalMessages());
     }
 
 }
