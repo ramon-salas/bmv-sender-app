@@ -14,11 +14,11 @@ import java.net.NetworkInterface;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mx.com.sajiro.exception.BroadcastSenderException;
 import mx.com.sajiro.exception.BusinessException;
@@ -28,11 +28,11 @@ import mx.com.sajiro.properties.MulticastConfigProperties;
  * @author SAJIRO
  */
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class BroadcastSenderServiceImpl implements BroadcastSenderService {
 
-    @Autowired
-    private MulticastConfigProperties multicastConfigProperties;
+    private final MulticastConfigProperties multicastConfigProperties;
 
     /*
      * (non-Javadoc)

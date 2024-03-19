@@ -6,11 +6,11 @@
  */
 package mx.com.sajiro.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonObject;
 
+import lombok.RequiredArgsConstructor;
 import mx.com.sajiro.properties.MulticastConfigProperties;
 import mx.com.sajiro.vo.JsonMessagePropertiesVO;
 
@@ -18,6 +18,7 @@ import mx.com.sajiro.vo.JsonMessagePropertiesVO;
  * @author SAJIRO
  */
 @Service
+@RequiredArgsConstructor
 public class MessageTransformerServiceImpl
         implements MessageTransformerService {
 
@@ -25,8 +26,7 @@ public class MessageTransformerServiceImpl
     private static final String TYPE_KEY = "Type";
     private static final String SEQUENCE_NUMBER_KEY = "SeqNum";
 
-    @Autowired
-    private MulticastConfigProperties multicastConfigProperties;
+    private final MulticastConfigProperties multicastConfigProperties;
 
     private int sequenceGlobal = 0;
 

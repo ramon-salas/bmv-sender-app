@@ -14,12 +14,12 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.util.concurrent.Uninterruptibles;
 import com.google.gson.JsonObject;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mx.com.sajiro.exception.BusinessException;
 import mx.com.sajiro.properties.MulticastConfigProperties;
@@ -30,24 +30,19 @@ import mx.com.sajiro.util.MessageHeaderCreatorUtil;
  * @author SAJIRO
  */
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class MessageProcessorServiceImpl implements MessageProcessorService {
 
     private static final String SEQUENCE_NUMBER_KEY = "SeqNum";
 
-    @Autowired
-    private MulticastConfigProperties multicastConfigProperties;
+    private final MulticastConfigProperties multicastConfigProperties;
 
-    @Autowired
-    private MessageValidatorService messageValidatorService;
-    @Autowired
-    private MessageParserService messageParserService;
-    @Autowired
-    private MessageTransformerService messageTransformerService;
-    @Autowired
-    private BytesConverterService bytesConverterService;
-    @Autowired
-    private BroadcastSenderService broadcastSenderService;
+    private final MessageValidatorService messageValidatorService;
+    private final MessageParserService messageParserService;
+    private final MessageTransformerService messageTransformerService;
+    private final BytesConverterService bytesConverterService;
+    private final BroadcastSenderService broadcastSenderService;
 
     private final Map<Integer, byte[]> messages = new HashMap<>();
 

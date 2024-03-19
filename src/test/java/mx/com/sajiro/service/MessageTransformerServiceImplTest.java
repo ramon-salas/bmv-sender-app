@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import com.google.gson.JsonParser;
 
@@ -45,11 +44,8 @@ class MessageTransformerServiceImplTest {
     private void validateMessage(
             final Function<MulticastConfigProperties, MulticastConfigProperties> configProperties) {
         final var jsonMessage = "{\"SeqNum\":7,\"Message\":{\"Name\":\"Securiti Suspension\",\"Type\":\"K\",\"Instrument Number\":5,\"Date for Suspension\":1707424818,\"Negotiation State\":\"O\",\"Reason\":\"O\"}}";
-        final var messageTransformerService = new MessageTransformerServiceImpl();
-        final var multicastConfigProperties = configProperties
-                .apply(new MulticastConfigProperties());
-        ReflectionTestUtils.setField(messageTransformerService,
-                "multicastConfigProperties", multicastConfigProperties);
+        final var messageTransformerService = new MessageTransformerServiceImpl(
+                configProperties.apply(new MulticastConfigProperties()));
         final var result = messageTransformerService.transform(
                 JsonParser.parseString(jsonMessage).getAsJsonObject());
         assertNotNull(result);
