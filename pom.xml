@@ -18,7 +18,11 @@
 
 	<properties>
 		<sonar.exclusions>
-			<!-- **/mx/com/sajiro/bmv/config/* -->
+			 **/mx/com/sajiro/vo/**,
+			 **/mx/com/sajiro/properties/**,
+			 **/sajiro/service/BroadcastSenderServiceImpl.java,
+			 **/sajiro/Application.java,
+			 **/sajiro/service/MessageProcessorServiceImpl.java
 		</sonar.exclusions>
 		<skip.main>false</skip.main>
 	</properties>

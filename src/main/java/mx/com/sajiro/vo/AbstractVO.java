@@ -81,7 +81,6 @@ public abstract class AbstractVO {
             throws NoSuchFieldException, SecurityException {
         Class<?> beanClass = getterMethod.getDeclaringClass();
         Field field = beanClass.getDeclaredField(fieldName);
-        field.setAccessible(Boolean.TRUE);
         for (var annotation : field.getAnnotations()) {
             if (annotation.annotationType() == Order.class) {
                 return ((Order) annotation).value();
