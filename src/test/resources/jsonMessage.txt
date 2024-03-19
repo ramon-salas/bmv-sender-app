@@ -1,0 +1,11 @@
+4;{"Type":"4","Instrument Number":1212,"Instrument Status":"a"}
+M;{"Type":"M","Instrument Number":1212,"Weighted Average Price":2323,"Volatility":12123}
+P;{"Type":"P","Instrument Number":1212,"Trade Time":123123,"Volume": 123,"Price":123123,"Concertation Type":"A","Trade Number":19,"Price Setter":"C","Operation Type":"A","Amount":1232,"Buy":"B","Sell":"a","Settlement":"a","Auction Indicator":"a"}
+Z;{"Type":"Z","Instrument Number":1212,"Offer Type":"a","Income":"b","Value Type":"a","Issuer":"df","Series":"bd","Maximum Volume":1232,"Registered Volume":123,"Price/Rate":12312,"Settlement Date":233,"Firm":"a","Movement":"z"}
+S;{"Type":"S","Instrument Number":1212,"Event Code":"A","Market":"A","Sending Time":123123,"Ending Time":23342}
+2;{"Type":"2","Instrument Number":1212,"Probable Allocation Price":123,"Volume":1231}
+5;{"Type":"5","Instrument Number":1212,"Existing Postures":"A"}
+E;{"Type":"E","Instrument Number":1212,"Number of Operations":12,"Volume":1232,"Amount":23423,"Opening Price":1232,"Maximum":12323,"Minimum":3423,"Average":2342,"Last":3242}
+O;{"Type":"O","Instrument Number":1212,"Volume":12,"Price/Rate":1232,"Offer Direction":"A","Operation Type":"A"}
+V;{"Type":"V","Instrument Number":1212,"Status":"A","Operation Type":"C","Number":2,"Volume":3,"Concertation":"C","Buy":"A","Sell":"BA"}
+Y;{"Type":"Y","Instrument Number":1212,"Trade Date":123123,"Price":123123,"Block Value":123123,"Number of Sales Transactions":2,"Sales Volume":123123,"Number of Buy Transactions":234,"Buy Volume":3424}

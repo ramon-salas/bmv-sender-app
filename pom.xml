@@ -3,24 +3,24 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>mx.com.sajiro</groupId>
 		<artifactId>sajiro-app-parent</artifactId>
-		<version>1.7.0</version>
+		<version>1.7.1</version>
 	</parent>
-	
+
 	<artifactId>bmv-sender-app</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<name>bmv-sender-app</name>
-	<description>Aplicación para el envío de mensajes de BMV con UDP y BMV Multicast</description>
+	<description>Aplicación para el envío de mensajes de BMV con UDP y BMV
+		Multicast</description>
 
 	<properties>
 		<sonar.exclusions>
 			<!-- **/mx/com/sajiro/bmv/config/* -->
 		</sonar.exclusions>
-<!--		Descomentar si es una aplicacion con SpringBoot-->
-<!--		<skip.main>false</skip.main>-->
+		<skip.main>false</skip.main>
 	</properties>
 
 	<repositories>
@@ -32,25 +32,44 @@
 
 
 	<dependencies>
-<!--		Dependencias del proyecto-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mx.com.sajiro</groupId>
+			<artifactId>bmv-api</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>33.1.0-jre</version>
+		</dependency>
 	</dependencies>
 
-<!--	Descomentar si se tiene clases para excluir de jacoco-->
-<!--	<build>-->
-<!--		<plugins>-->
-<!--			<plugin>-->
-<!--				<groupId>org.jacoco</groupId>-->
-<!--				<artifactId>jacoco-maven-plugin</artifactId>-->
-<!--				<configuration>-->
-<!--					<excludes>-->
-<!--						<exclude>**/config/**</exclude>-->
-<!--						<exclude>**/vo/**</exclude>-->
-<!--						<exclude>**/runnable/**</exclude>-->
-<!--						<exclude>**/sajiro/SajiroBmvKernelApplication.class</exclude>-->
-<!--					</excludes>-->
-<!--				</configuration>-->
-<!--			</plugin>-->
-<!--		</plugins>-->
-<!--	</build>-->
-	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<configuration>
+					<excludes>	
+						<exclude>**/vo/**</exclude>
+						<exclude>**/properties/**</exclude>
+						<exclude>**/sajiro/Application.class</exclude>
+						<exclude>**/sajiro/service/BroadcastSenderServiceImpl.class</exclude>
+						<exclude>**/sajiro/service/MessageProcessorServiceImpl.class</exclude>A
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
