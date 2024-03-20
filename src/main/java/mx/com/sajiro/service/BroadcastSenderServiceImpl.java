@@ -33,6 +33,7 @@ import mx.com.sajiro.properties.MulticastConfigProperties;
 public class BroadcastSenderServiceImpl implements BroadcastSenderService {
 
     private final MulticastConfigProperties multicastConfigProperties;
+    private final SentMessageHandlerService sentMessageHandlerService;
 
     /*
      * (non-Javadoc)
@@ -58,6 +59,7 @@ public class BroadcastSenderServiceImpl implements BroadcastSenderService {
                         multicastConfigProperties.getMilliseconds(),
                         TimeUnit.MICROSECONDS);
                 log.info("Mensaje enviado: {}", Arrays.toString(message));
+                sentMessageHandlerService.check();
             }
         } catch (Exception e) {
             throw new BroadcastSenderException(e);
