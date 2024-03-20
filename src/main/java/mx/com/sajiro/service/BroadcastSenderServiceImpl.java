@@ -55,9 +55,6 @@ public class BroadcastSenderServiceImpl implements BroadcastSenderService {
                                 .getByName(multicastConfigProperties.getIp()),
                         multicastConfigProperties.getPort());
                 datagramSocket.send(datagramPacket);
-                Uninterruptibles.sleepUninterruptibly(
-                        multicastConfigProperties.getMilliseconds(),
-                        TimeUnit.MICROSECONDS);
                 log.info("Mensaje enviado: {}", Arrays.toString(message));
                 sentMessageHandlerService.check();
             }
