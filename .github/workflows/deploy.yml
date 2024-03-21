@@ -102,10 +102,11 @@ jobs:
           then
             git checkout v$version
             mvn clean package
-            find . -name "*.jar" -exec scp {} $HOSTING_IP:$PATH_INSTALL \;
+            find . -name "*.jar" -exec scp {} $HOSTING_USER@$HOSTING_IP:$PATH_INSTALL \;
           else
             exit 0
           fi
         env:
+          HOSTING_USER: ${{ secrets.HOSTING_USER }}
           HOSTING_IP: ${{ secrets.HOSTING_IP }}
           PATH_INSTALL: ${{ secrets.PATH_INSTALL }}
