@@ -3,7 +3,7 @@
 	<Properties>
 		<Property name="log-level">${env:LOG_LEVEL:-INFO}</Property>
 		<Property name="log-path">${env:LOG_FILE_PATH:-/tmp}</Property>
-		<Property name="log-file-name">${bundle:application:project.name}</Property>
+		<Property name="log-file-name">${env:LOG_FILE_NAME:-${bundle:application:project.name}}</Property>
 	</Properties>
 	<Appenders>
 		<RollingFile name="RollingFile_Appender"
