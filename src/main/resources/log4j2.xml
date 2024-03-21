@@ -3,18 +3,18 @@
 	<Properties>
 		<Property name="log-level">${env:LOG_LEVEL:-INFO}</Property>
 		<Property name="log-path">${env:LOG_FILE_PATH:-/tmp}</Property>
-		<Property name="log-file-name">${env:LOG_FILE_NAME:-bmv-sender-app}</Property>
+		<Property name="log-file-name">${env:LOG_FILE_NAME:-${bundle:application:project.name}}</Property>
 	</Properties>
 	<Appenders>
 		<RollingFile name="RollingFile_Appender"
 			fileName="${log-path}/${log-file-name}.log"
-			filePattern="${log-path}/${log-file-name}-%d{yyyy-MM-dd-HH-mm}.log">
+			filePattern="${log-path}/${log-file-name}-%d{yyyy-MM-dd-HH-mm-ss}.log">
 			<PatternLayout>
 				<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{1.} -
 					%msg%n</Pattern>
 			</PatternLayout>
 			<Policies>
-				<SizeBasedTriggeringPolicy size="10 MB" />
+				<SizeBasedTriggeringPolicy size="20 MB" />
 			</Policies>
 		</RollingFile>
 		<Console name="Console" target="SYSTEM_OUT">

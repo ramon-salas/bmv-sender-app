@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>mx.com.sajiro</groupId>
 		<artifactId>sajiro-app-parent</artifactId>
-		<version>1.7.1</version>
+		<version>1.8.0</version>
 	</parent>
 
 	<artifactId>bmv-sender-app</artifactId>
@@ -18,11 +18,11 @@
 
 	<properties>
 		<sonar.exclusions>
-			 **/mx/com/sajiro/vo/**,
-			 **/mx/com/sajiro/properties/**,
-			 **/sajiro/service/BroadcastSenderServiceImpl.java,
-			 **/sajiro/Application.java,
-			 **/sajiro/service/MessageProcessorServiceImpl.java
+			**/mx/com/sajiro/vo/**,
+			**/mx/com/sajiro/properties/**,
+			**/sajiro/service/BroadcastSenderServiceImpl.java,
+			**/sajiro/Application.java,
+			**/sajiro/service/MessageProcessorServiceImpl.java
 		</sonar.exclusions>
 		<skip.main>false</skip.main>
 	</properties>
@@ -40,7 +40,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
@@ -64,12 +64,16 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<configuration>
-					<excludes>	
+					<excludes>
 						<exclude>**/vo/**</exclude>
 						<exclude>**/properties/**</exclude>
-						<exclude>**/sajiro/Application.class</exclude>
-						<exclude>**/sajiro/service/BroadcastSenderServiceImpl.class</exclude>
-						<exclude>**/sajiro/service/MessageProcessorServiceImpl.class</exclude>A
+						<exclude>
+						**/sajiro/Application.class</exclude>
+						<exclude>
+						**/sajiro/service/BroadcastSenderServiceImpl.class</exclude>
+						<exclude>
+						**/sajiro/service/MessageProcessorServiceImpl.class</exclude>
+						A
 					</excludes>
 				</configuration>
 			</plugin>
