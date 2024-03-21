@@ -74,3 +74,36 @@ jobs:
           git add .
           git commit -m "Dev - $version-SNAPSHOT"
           git push -u origin main
+
+          echo "::set-output name=maven_version::$version"
+
+      - name: ssh-key-gen
+        id: ssh-key-gen
+        run: |
+          version=${{ steps.autoversion.outputs.maven_version }}
+          if [ ! -z $version ]
+          then
+            if [ ! -f ~/.ssh/ssh-keystcan-commando.txt ]
+            then
+            ssh-keyscan -H $IP_HOSTING >> ~/.ssh/ssh-keystcan-commando.txt
+            cat ~/.ssh/ssh-keystcan-commando.txt >> ~/.ssh/known_hosts
+            else 
+              exit 0
+            fi
+          fi
+      
+      - name: Deploy
+        id: deploy
+        run: |
+          version=${{ steps.autoversion.outputs.maven_version }}
+          if [ ! -z $version]
+          then
+            git checkout v$version
+            mvn clean package
+            find . -name "*.jar" -exec scp {} $HOSTING_IP:$PATH_INSTALL \;
+          else
+            exit 0
+          fi
+        env:
+          HOSTING_IP: ${{ secrets.HOSTING_IP }}
+          PATH_INSTALL: ${{ secrets.PATH_INSTALL }}
