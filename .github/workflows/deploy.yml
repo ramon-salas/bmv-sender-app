@@ -81,7 +81,7 @@ jobs:
         id: ssh-key-gen
         run: |
           version=${{ steps.autoversion.outputs.maven_version }}
-          if [ ! -z $version ]
+          if [ -n "$version" ]
           then
             if [ ! -f ~/.ssh/ssh-keystcan-commando.txt ]
             then
@@ -98,7 +98,7 @@ jobs:
         id: deploy
         run: |
           version=${{ steps.autoversion.outputs.maven_version }}
-          if [ ! -z $version]
+          if [ -n "$version" ]
           then
             git checkout v$version
             mvn clean package
