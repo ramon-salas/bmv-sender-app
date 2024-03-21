@@ -76,12 +76,11 @@ jobs:
           git push -u origin main
 
           echo "::set-output name=maven_version::$version"
-          echo $version >> $MAVEN_VERSION
 
       - name: ssh-key-gen
         id: ssh-key-gen
         run: |
-          version=$MAVEN_VERSION
+          version=${{ steps.autoversion.outputs.maven_version }}
           if [ -n "$version" ]
           then
             if [ ! -f ~/.ssh/ssh-keystcan-commando.txt ]
@@ -98,7 +97,7 @@ jobs:
       - name: Deploy
         id: deploy
         run: |
-          version=$MAVEN_VERSION
+          version=${{ steps.autoversion.outputs.maven_version }}
           if [ -n "$version" ]
           then
             git checkout v$version
