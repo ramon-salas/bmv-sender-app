@@ -28,7 +28,7 @@ public class MessageTransformerServiceImpl
 
     private final MulticastConfigProperties multicastConfigProperties;
 
-    private int sequenceGlobal = 0;
+    private int sequenceGlobal = 1;
 
     /*
      * (non-Javadoc)
