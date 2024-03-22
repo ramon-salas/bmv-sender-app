@@ -9,7 +9,7 @@ package mx.com.sajiro.service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -44,7 +44,7 @@ public class MessageProcessorServiceImpl implements MessageProcessorService {
     private final BytesConverterService bytesConverterService;
     private final BroadcastSenderService broadcastSenderService;
 
-    private final Map<Integer, byte[]> messages = new HashMap<>();
+    private final Map<Integer, byte[]> messages = new LinkedHashMap<>();
 
     @Override
     public void process() throws BusinessException {
@@ -102,6 +102,7 @@ public class MessageProcessorServiceImpl implements MessageProcessorService {
             throws BusinessException {
         final var bytes = ArraysUtils.addAll(MessageHeaderCreatorUtil.create(
                 multicastConfigProperties, message.length, sequence), message);
+        log.info("Sequence: {}", sequence);
         broadcastSenderService.send(bytes);
     }
 
